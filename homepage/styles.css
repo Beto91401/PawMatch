@@ -9,7 +9,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url('images/dog-cat-under-sheet.jpg') no-repeat center center fixed;
+    background: url('../images/dog-cat-under-sheet.jpg') no-repeat center center fixed;
     background-size: cover;
     text-align: center; /* Center text within the main content */
 }
@@ -115,19 +115,36 @@ body {
 .carousel-section {
     padding: 50px 0; /* Padding for the carousel section */
     background-color: #F8C8DC; /* Set background color for the carousel section */
+    display: flex;
+    justify-content: center; /* Center the carousel horizontally */
 }
-
 .carousel-inner img {
-    height: 500px; /* Adjust as necessary */
-    object-fit: cover;
+    height: auto; /* Adjust as necessary */
+    width: 100%; /* Ensure the image covers the full width */
+    object-fit: none;
 }
 
 .carousel {
-    background-color: #F8C8DC; /* Set background color for the carousel itself */
+    width: 80%; /* Adjust width as necessary */
+    max-width: 400px; /* Max width for the carousel */
 }
 
-.carousel-item {
-    background-color: #F8C8DC; /* Set background color for each carousel item */
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%; /* Adjust as necessary to create space between the buttons and the carousel */
+}
+
+
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 50px;
+}
+
+.carousel-caption h5,
+.carousel-caption p {
+    color: #fff; /* White text */
 }
 
 hr.break-off-line {

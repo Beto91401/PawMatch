@@ -1,0 +1,46 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background: rgba(255, 255, 255, 0); /* Fully transparent */
+    transition: background 0.3s ease;
+}
+
+.navbar.scrolled {
+    background: rgba(255, 255, 255, 1); /* White background */
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand .navbar-text {
+    font-size: 1.5em;
+}
+
+.main-content {
+    padding-top: 80px; /* Space for fixed navbar */
+    text-align: center;
+}
+
+.btn-bubbly {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 50px;
+    background-color: #FFFFFF;
+    color: #333;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    margin: auto; /* Center the button */
+    display: block; /* Ensure the button is a block element */
+}
+
+.btn-bubbly:hover {
+    background-color: #F8C8DC;
+}
