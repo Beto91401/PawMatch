@@ -1,69 +1,138 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
     margin: 0;
     padding: 0;
+}
+
+.main-content {
+    height: 100vh; /* Full height of the viewport */
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    background: url('images/dog-cat-under-sheet.jpg') no-repeat center center fixed;
+    background-size: cover;
+    text-align: center; /* Center text within the main content */
 }
 
-.container {
-    text-align: center;
-    background-color: #fff;
+.content-wrapper {
+    background-color: rgba(255, 255, 255, 0.8); /* Optional: Add background to main content for better readability */
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Ensure it takes the full width available */
 }
 
-.logo h1 {
-    margin: 0;
-    font-size: 2.5em;
-    color: #ff6f61;
+.navbar {
+    background: rgba(255, 255, 255, 0); /* Fully transparent */
+    transition: background 0.3s ease;
 }
 
-.form-container {
+.navbar.scrolled {
+    background: rgba(255, 255, 255, 1); /* White background */
+}
+
+.navbar-brand {
     display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
+    align-items: center;
 }
 
-.form-box {
-    width: 45%;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    background-color: #f9f9f9;
+.navbar-brand .navbar-text {
+    font-size: 1.5em;
+    color: #333; /* Adjust color as needed */
+    margin-left: 10px;
 }
 
-.form-box h2 {
-    margin-bottom: 20px;
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.navbar-nav .nav-link {
+    color: #333 !important; /* Adjust color as needed */
+    margin-right: 10px;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus {
+    color: white !important; /* Adjust color as needed */
+}
+
+/* Bubbly Button Styles */
+.btn-bubbly {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 50px;
+    background-color: #FFFFFF;
     color: #333;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    margin: auto; /* Center the button */
+    display: block; /* Ensure the button is a block element */
 }
 
-form {
+.btn-bubbly:hover {
+    background-color: #F8C8DC;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content {
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent modal background */
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.modal-body form {
     display: flex;
     flex-direction: column;
 }
 
-input {
+.modal-body form input {
     margin-bottom: 10px;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
 }
 
-button {
+.modal-body form button {
     padding: 10px;
     border: none;
     border-radius: 5px;
-    background-color: #ff6f61;
-    color: #fff;
+    background-color: #F8C8DC;
+    color: #333;
     cursor: pointer;
     font-size: 1em;
+    transition: background-color 0.3s ease;
 }
 
-button:hover {
-    background-color: #ff5a4d;
+.modal-body form button:hover {
+    background-color: #F8C8DC;
+}
+
+/* Carousel Styles */
+.carousel-section {
+    padding: 50px 0; /* Padding for the carousel section */
+    background-color: #F8C8DC; /* Set background color for the carousel section */
+}
+
+.carousel-inner img {
+    height: 500px; /* Adjust as necessary */
+    object-fit: cover;
+}
+
+.carousel {
+    background-color: #F8C8DC; /* Set background color for the carousel itself */
+}
+
+.carousel-item {
+    background-color: #F8C8DC; /* Set background color for each carousel item */
+}
+
+hr.break-off-line {
+    border: 0;
+    height: 1px;
+    background: #333;
+    margin: 50px 0;
 }
