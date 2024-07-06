@@ -73,7 +73,7 @@ body {
 }
 
 .btn-bubbly:hover {
-    background-color: #F8C8DC;
+    background-color: #F6E3F6;
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
@@ -100,7 +100,7 @@ body {
     padding: 10px;
     border: none;
     border-radius: 5px;
-    background-color: #F8C8DC;
+    background-color: #F6E3F6;
     color: #333;
     cursor: pointer;
     font-size: 1em;
@@ -108,13 +108,13 @@ body {
 }
 
 .modal-body form button:hover {
-    background-color: #F8C8DC;
+    background-color: #F6E3F6;
 }
 
 /* Carousel Styles */
 .carousel-section {
     padding: 50px 0; /* Padding for the carousel section */
-    background-color: #F8C8DC; /* Set background color for the carousel section */
+    background-color: #F6E3F6; /* Set background color for the carousel section */
     display: flex;
     justify-content: center; /* Center the carousel horizontally */
 }
@@ -131,9 +131,24 @@ body {
 
 .carousel-control-prev,
 .carousel-control-next {
-    width: 5%; /* Adjust as necessary to create space between the buttons and the carousel */
+    width: 5%;
+    color: #333; /* Adjust as necessary to create space between the buttons and the carousel */
 }
 
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: transparent;
+    background-size: 100%, 100%;
+    background-repeat: no-repeat;
+}
+
+.carousel-control-prev-icon {
+    background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns="http://www.w3.org/2000/svg" fill="%23000000" viewBox="0 0 16 16"%3E%3Cpath d="M11.354 1.354a.5.5 0 0 0-.708 0L5.5 6.5l5.146 5.146a.5.5 0 0 0 .708-.708L6.207 6.5l5.147-5.146a.5.5 0 0 0 0-.708z"%3E%3C/path%3E%3C/svg%3E');
+}
+
+.carousel-control-next-icon {
+    background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns="http://www.w3.org/2000/svg" fill="%23000000" viewBox="0 0 16 16"%3E%3Cpath d="M4.646 1.354a.5.5 0 0 1 .708 0L10.5 6.5 5.354 11.646a.5.5 0 1 1-.708-.708L9.793 6.5 4.646 1.354a.5.5 0 0 1 0-.708z"%3E%3C/path%3E%3C/svg%3E');
+}
 
 .carousel-caption {
     background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
