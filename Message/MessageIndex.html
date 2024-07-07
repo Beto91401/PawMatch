@@ -10,7 +10,6 @@
 </head>
 <body>
     <!-- Navbar -->
-    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
@@ -32,4 +31,49 @@
             <button class="btn btn-bubbly ms-auto" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
         </div>
     </nav>
-    
+    <!-- End of Navbar -->
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1 class="page-title">Matches</h1>
+        <div class="headshot-container">
+            <img src="../images/default-profile.png" alt="Owner A Image" class="headshot-image">
+            <div class="owner-info">
+                <span class="owner-name">Owner A</span>
+                <p class="owner-description">Description of Owner A.</p>
+            </div>
+            <button class="star-button" onclick="toggleStar(this)">★</button>
+        </div>
+        <hr class="separator">
+        <div class="headshot-container">
+            <img src="../images/default-profile.png" alt="Owner B Image" class="headshot-image">
+            <div class="owner-info">
+                <span class="owner-name">Owner B</span>
+                <p class="owner-description">Description of Owner B.</p>
+            </div>
+            <button class="star-button" onclick="toggleStar(this)">★</button>
+        </div>
+        <hr class="separator">
+        <div class="headshot-container">
+            <img src="../images/default-profile.png" alt="Owner C Image" class="headshot-image">
+            <div class="owner-info">
+                <span class="owner-name">Owner C</span>
+                <p class="owner-description">Description of Owner C.</p>
+            </div>
+            <button class="star-button" onclick="toggleStar(this)">★</button>
+        </div>
+        <!-- Repeat for more headshots and names -->
+    </div>
+
+    <script>
+        function toggleStar(button) {
+            button.classList.toggle('clicked');
+        }
+    </script>
+
+    <!-- Latest Bootstrap and Popper JS from jsDelivr CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="../app.js"></script> <!-- Include your app.js file here -->
+</body>
+</html>
