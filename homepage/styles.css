@@ -20,7 +20,7 @@ body {
     border-radius: 10px;
     width: 100%; /* Ensure it takes the full width available */
 }
-
+/* Navbar stuff */
 .navbar {
     background: rgba(255, 255, 255, 0); /* Fully transparent */
     transition: background 0.3s ease;
@@ -54,9 +54,10 @@ body {
 
 .navbar-nav .nav-link:hover,
 .navbar-nav .nav-link:focus {
-    color: white !important; /* Adjust color as needed */
+    color: #333 !important; /* Adjust color as needed */
+    text-decoration: underline;
 }
-
+ /* End of navbar stuff  */
 /* Bubbly Button Styles */
 .btn-bubbly {
     padding: 15px 30px;
@@ -105,61 +106,6 @@ body {
     cursor: pointer;
     font-size: 1em;
     transition: background-color 0.3s ease;
-}
-
-.modal-body form button:hover {
-    background-color: #F6E3F6;
-}
-
-/* Carousel Styles */
-.carousel-section {
-    padding: 50px 0; /* Padding for the carousel section */
-    background-color: #F6E3F6; /* Set background color for the carousel section */
-    display: flex;
-    justify-content: center; /* Center the carousel horizontally */
-}
-.carousel-inner img {
-    height: auto; /* Adjust as necessary */
-    width: 100%; /* Ensure the image covers the full width */
-    object-fit: none;
-}
-
-.carousel {
-    width: 80%; /* Adjust width as necessary */
-    max-width: 400px; /* Max width for the carousel */
-}
-
-.carousel-control-prev,
-.carousel-control-next {
-    width: 5%;
-    color: #333; /* Adjust as necessary to create space between the buttons and the carousel */
-}
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    background-color: transparent;
-    background-size: 100%, 100%;
-    background-repeat: no-repeat;
-}
-
-.carousel-control-prev-icon {
-    background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns="http://www.w3.org/2000/svg" fill="%23000000" viewBox="0 0 16 16"%3E%3Cpath d="M11.354 1.354a.5.5 0 0 0-.708 0L5.5 6.5l5.146 5.146a.5.5 0 0 0 .708-.708L6.207 6.5l5.147-5.146a.5.5 0 0 0 0-.708z"%3E%3C/path%3E%3C/svg%3E');
-}
-
-.carousel-control-next-icon {
-    background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns="http://www.w3.org/2000/svg" fill="%23000000" viewBox="0 0 16 16"%3E%3Cpath d="M4.646 1.354a.5.5 0 0 1 .708 0L10.5 6.5 5.354 11.646a.5.5 0 1 1-.708-.708L9.793 6.5 4.646 1.354a.5.5 0 0 1 0-.708z"%3E%3C/path%3E%3C/svg%3E');
-}
-
-.carousel-caption {
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 50px;
-}
-
-.carousel-caption h5,
-.carousel-caption p {
-    color: #fff; /* White text */
 }
 
 hr.break-off-line {
