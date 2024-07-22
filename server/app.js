@@ -23,7 +23,15 @@ db.once('open', function() {
 const userSchema = new mongoose.Schema({
   username: String,
   email: String,
-  password: String
+  password: String,
+  dogType: String,
+  dogAge: Number,
+  dogGender: String,
+  dogName: String,
+  coatLength: String,
+  petFriendly: String,
+  dogPersonality: String,
+  dogPicture: String
 });
 
 const User = mongoose.model('User', userSchema);
