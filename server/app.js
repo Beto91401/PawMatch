@@ -73,8 +73,10 @@ const upload = multer({ storage: storage });
 app.post('/signup', upload.single('dogPicture'), async (req, res) => {
   const {
     username, email, password, dogType, dogAge, dogGender, dogName,
-    coatLength, petFriendly, dogPersonality, dogPicture, websiteChoice
+    coatLength, petFriendly, dogPersonality, websiteChoice
   } = req.body;
+
+  const dogPictureFilename = req.file ? req.file.filename : null;
 
   const user = new User({
     username,
@@ -87,15 +89,12 @@ app.post('/signup', upload.single('dogPicture'), async (req, res) => {
     coatLength,
     petFriendly,
     dogPersonality,
-    dogPicture 
+    dogPicture: dogPictureFilename // Assign the filename from the uploaded file
   });
 
   try {
     await user.save();
-    // console.log('User created!:', user); // Log the saved user
-    console.log('zomg this is so cool xd');
-    console.log(websiteChoice);
-    console.log('i really hope nodemon updatesw OMG');
+    console.log('User created:', user); // Log the saved user
     if (websiteChoice === 'adoption') {
       res.redirect('/Adoption');
     } else {
@@ -106,6 +105,7 @@ app.post('/signup', upload.single('dogPicture'), async (req, res) => {
     res.status(500).send('Error creating user');
   }
 });
+
 
 // Route to serve AdoptionIndex.html at /adoption
 app.get('/Adoption', (req, res) => {
