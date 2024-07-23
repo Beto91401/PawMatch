@@ -5,7 +5,7 @@ body {
     background-color: #F6E3F6; /* Set background color */
 }
 
-/* Navbar stuff */
+/* Navbar styles */
 .navbar {
     background: rgba(255, 255, 255, 0); /* Fully transparent */
     transition: background 0.3s ease;
@@ -42,25 +42,50 @@ body {
     color: #333 !important; /* Adjust color as needed */
     text-decoration: underline;
 }
- /* End of navbar stuff  */
+
+/* Main content styles */
 .main-content {
     padding-top: 80px; /* Space for fixed navbar */
     text-align: center;
-   
-}
-.center-image {
-    width: 80%; /* Adjust this percentage as needed */
-    height: auto;
-    max-width: 800px; /* Optional: Set a maximum width */
-    margin: 20px 0;
 }
 
-.button-group {
+.page-title {
+    font-family: 'Pacifico', cursive;
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    font-size: 3em;
+    color: #fff;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    background-color: #808588;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+/* Swiper styles */
+.swiper-container {
+    width: 75%;
+    height: 75vh;
     display: flex;
     justify-content: center;
-    gap: 20px;
+    align-items: center;
+    transform: translateX(150px);
 }
 
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px; /* Increased font size for visibility */
+    color: #fff;
+    background-color: #007bff;
+    width: 250px; /* Increased width */
+    height: 350px; /* Increased height */
+    border-radius: 10px;
+}
+
+
+/* Button styles */
 .btn-bubbly {
     padding: 15px 30px;
     font-size: 1.2em;
@@ -77,10 +102,4 @@ body {
 
 .btn-bubbly:hover {
     background-color: #F6E3F6;
-}
-
-.page-title {
-    font-weight: bold;
-    margin-bottom: 20px;
-    margin-top: 20px;
 }

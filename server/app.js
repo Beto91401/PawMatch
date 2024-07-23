@@ -87,7 +87,7 @@ app.post('/signup', upload.single('dogPicture'), async (req, res) => {
     coatLength,
     petFriendly,
     dogPersonality,
-    dogPicture // Note: Ensure dogPicture handling is implemented correctly for file uploads
+    dogPicture 
   });
 
   try {
@@ -161,5 +161,17 @@ app.get("/get-image", async (req, res) => {
     });
   } catch (error) {
     res.json({ status: error });
+  }
+});
+
+
+////// Getting data to appear on adoption cards.
+
+app.get('/adoption-users', async (req, res) => {
+  try {
+    const users = await User.find({ websiteChoice: 'adoption' });
+    res.json(users);
+  } catch (error) {
+    res.status(500).send('Error fetching adoption users');
   }
 });
