@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const multer = require('multer');
 const path = require('path');
 const app = express();
 const port = 3000;
@@ -33,6 +34,8 @@ const userSchema = new mongoose.Schema({
   dogPersonality: String,
   dogPicture: String
 });
+require("./imageDetails");
+const Images = mongoose.model("ImageDetails");
 
 const User = mongoose.model('User', userSchema);
 
@@ -49,20 +52,69 @@ app.use('/css', express.static(path.join(__dirname, '../css')));
 app.use('/fonts', express.static(path.join(__dirname, '../fonts')));
 app.use('/Message', express.static(path.join(__dirname, '../Message')));
 app.use('/Profile', express.static(path.join(__dirname, '../Profile')));
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+app.use(express.static(path.join(__dirname, '../')))
+
+
+
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, path.join(__dirname, '../uploads')); // Correct path to uploads directory
+  },
+  filename: function(req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname);
+  }
+});
+
+const upload = multer({ storage: storage });
+
 
 // Route to handle user signup
-app.post('/signup', async (req, res) => {
-  const { username, email, password } = req.body;
-  console.log('Received data:', req.body); // Log received data
-  const user = new User({ username, email, password });
+app.post('/signup', upload.single('dogPicture'), async (req, res) => {
+  const {
+    username, email, password, dogType, dogAge, dogGender, dogName,
+    coatLength, petFriendly, dogPersonality, dogPicture, websiteChoice
+  } = req.body;
+
+  const user = new User({
+    username,
+    email,
+    password,
+    dogType,
+    dogAge,
+    dogGender,
+    dogName,
+    coatLength,
+    petFriendly,
+    dogPersonality,
+    dogPicture // Note: Ensure dogPicture handling is implemented correctly for file uploads
+  });
+
   try {
     await user.save();
-    console.log('User created:', user); // Log the saved user
-    res.status(201).send('User created');
+    // console.log('User created!:', user); // Log the saved user
+    console.log('zomg this is so cool xd');
+    console.log(websiteChoice);
+    console.log('i really hope nodemon updatesw OMG');
+    if (websiteChoice === 'adoption') {
+      res.redirect('/Adoption');
+    } else {
+      res.redirect('/Breeding');
+    }
   } catch (error) {
     console.error('Error creating user:', error); // Log errors
     res.status(500).send('Error creating user');
   }
+});
+
+// Route to serve AdoptionIndex.html at /adoption
+app.get('/Adoption', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'Adoption', 'AdoptionIndex.html'));
+});
+
+// Route to serve AdoptionIndex.html at /adoption
+app.get('/Breeding', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'Breeding', 'BreedingIndex.html'));
 });
 
 // Route to get all users (for verification purposes)
@@ -82,4 +134,32 @@ app.get('/', (req, res) => {
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
+});
+
+///////////////////////////////////////////
+
+
+
+app.post("/upload-image", upload.single("image"), async (req, res) => {
+  console.log(req.body);
+  const iamgeName = req.file.filename;
+  
+  try {
+    await Images.create({image: imageName });
+    res.json({status:"ok"});
+  } catch (error) {
+    res.json({status:error});
+  }
+
+});
+
+
+app.get("/get-image", async (req, res) => {
+  try {
+    Images.find({}).then(data=>{
+      res.send({ status: "ok", data: data });
+    });
+  } catch (error) {
+    res.json({ status: error });
+  }
 });
