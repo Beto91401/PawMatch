@@ -32,7 +32,8 @@ const userSchema = new mongoose.Schema({
   coatLength: String,
   petFriendly: String,
   dogPersonality: String,
-  dogPicture: String
+  dogPicture: String,
+  websiteChoice: String
 });
 require("./imageDetails");
 const Images = mongoose.model("ImageDetails");
@@ -89,7 +90,8 @@ app.post('/signup', upload.single('dogPicture'), async (req, res) => {
     coatLength,
     petFriendly,
     dogPersonality,
-    dogPicture: dogPictureFilename // Assign the filename from the uploaded file
+    dogPicture: dogPictureFilename, 
+    websiteChoice// Assign the filename from the uploaded file
   });
 
   try {
@@ -170,6 +172,15 @@ app.get("/get-image", async (req, res) => {
 app.get('/adoption-users', async (req, res) => {
   try {
     const users = await User.find({ websiteChoice: 'adoption' });
+    res.json(users);
+  } catch (error) {
+    res.status(500).send('Error fetching adoption users');
+  }
+});
+
+app.get('/breeding-users', async (req, res) => {
+  try {
+    const users = await User.find({ websiteChoice: 'breeding' });
     res.json(users);
   } catch (error) {
     res.status(500).send('Error fetching adoption users');

@@ -40,11 +40,8 @@
         <div class="container">
             <h1 class="page-title">Adoption</h1>
             <div class="swiper-container">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">Card 1</div>
-                    <div class="swiper-slide">Card 2</div>
-                    <div class="swiper-slide">Card 3</div>
-                    <div class="swiper-slide">Card 4</div>
+                <div class="swiper-wrapper" id="swiper-wrapper">
+                    <!-- Swiper slides will be dynamically inserted here -->
                 </div>
                 <!-- Add Pagination -->
                 <div class="swiper-pagination"></div>
@@ -57,9 +54,49 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
-      const swiper = new Swiper('.swiper-container', {
-        effect: 'cards',
-        grabCursor: true,
+      document.addEventListener('DOMContentLoaded', async function() {
+        try {
+          console.log('Fetching adoption users...');
+          const response = await fetch('/adoption-users');
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          const users = await response.json();
+          console.log('Users fetched:', users); // Log users for debugging
+
+          const swiperWrapper = document.getElementById('swiper-wrapper');
+          users.forEach(user => {
+            console.log('Creating slide for user:', user);
+            const slide = document.createElement('div');
+            slide.classList.add('swiper-slide');
+            slide.innerHTML = `
+              <div class="card">
+                <div class="card-img-container">
+                  <img src="/uploads/${user.dogPicture}" alt="${user.dogName}" class="card-img-top">
+                </div>
+                <div class="card-body">
+                  <h3 class="card-title">${user.dogName}</h3>
+                  <p class="card-text">Type: ${user.dogType}</p>
+                  <p class="card-text">Age: ${user.dogAge}</p>
+                  <p class="card-text">Gender: ${user.dogGender}</p>
+                  <p class="card-text">Personality: ${user.dogPersonality}</p>
+                </div>
+              </div>
+            `;
+            swiperWrapper.appendChild(slide);
+          });
+
+          console.log('Initializing Swiper...');
+          const swiper = new Swiper('.swiper-container', {
+            effect: 'cards',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            spaceBetween: 30
+          });
+        } catch (error) {
+          console.error('Error fetching adoption users:', error);
+        }
       });
     </script>
 </body>
