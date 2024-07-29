@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const fileInput = document.querySelector('input[name="dogPicture"]');
         const file = fileInput.files[0];
-        if (file) {
+        if (file && !formData.has('dogPicture')) {
             formData.append('dogPicture', file);
         }
 
@@ -51,8 +51,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Login form submission
-    document.getElementById('login-form').addEventListener('submit', async function(event) {
+       // Login form submission
+       document.getElementById('login-form').addEventListener('submit', async function(event) {
         event.preventDefault();
         login();
     });
@@ -63,7 +63,7 @@ const login = async () => {
     const password = document.getElementById('password').value;
 
     console.log('Attempting login with email:', email);
-
+    console.log('Password:', password); // Add this line to check the password
     try {
         const response = await fetch('/api/users/login', {
             method: 'POST',
@@ -72,12 +72,16 @@ const login = async () => {
             },
             body: JSON.stringify({ email, password })
         });
+        console.log('Server response:', response); // Log the server response
 
         if (response.ok) {
             const data = await response.json();
             console.log('Token received:', data.token);
             localStorage.setItem('jwtToken', data.token); // Save token to local storage
             console.log('Login successful, token:', data.token);
+
+            // Add redirection logic after successful login
+            window.location.href = '../Profile/ProfileIndex.html'; // Redirect to Profile or appropriate page
         } else {
             console.error('Login failed', response.status, response.statusText);
         }

@@ -6,14 +6,19 @@ import jwt from "jsonwebtoken";
 export const login = async (req, res) => {
   const { email, password } = req.body;
 
+  console.log('Login attempt with email:', email); // Log email
+  console.log('Password provided:', password); // Log password
+
   try {
     const user = await User.findOne({ email });
     if (!user) {
+      console.log('User not found for email:', email); // Log user not found
       return res.status(400).json({ message: "Invalid email or password" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
+      console.log('Password does not match for email:', email); // Log password mismatch
       return res.status(400).json({ message: "Invalid email or password" });
     }
 
@@ -62,6 +67,8 @@ export const signup = async (req, res) => {
 
   const dogPicture = req.file ? req.file.filename : null;
 
+  console.log('Received data:', req.body); // Log received fields
+  console.log('Received file:', req.file); // Log received file
   try {
       const existingUser = await User.findOne({ email });
       if (existingUser) {
@@ -113,6 +120,7 @@ export const getAdoptionUsers = async (req, res) => {
     const users = await User.find({ websiteChoice: "adoption" });
     res.json(users);
   } catch (error) {
+    console.error("Error fetching adoption users:", error);
     res.status(500).send("Error fetching adoption users");
   }
 };

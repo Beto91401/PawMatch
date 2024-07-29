@@ -57,7 +57,7 @@
       document.addEventListener('DOMContentLoaded', async function() {
         try {
           console.log('Fetching adoption users...');
-          const response = await fetch('/adoption-users');
+          const response = await fetch('/api/users/adoption-users'); // Updated endpoint
           if (!response.ok) {
             throw new Error('Network response was not ok');
           }

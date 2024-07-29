@@ -18,11 +18,14 @@ const router = express.Router();
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, "../../uploads"));
+      console.log('Multer storage destination function called'); // Log when this function is called
+      cb(null, path.join(__dirname, '../../uploads'));
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname);
-  },
+      console.log('Multer storage filename function called'); // Log when this function is called
+      console.log('File received:', file.originalname); // Log the file name
+      cb(null, Date.now() + '-' + file.originalname);
+  }
 });
 
 const upload = multer({ storage: storage });
@@ -31,9 +34,10 @@ const upload = multer({ storage: storage });
 router.post("/login", login);
 router.post("/getuse", login);
 router.get("/current-user", getCurrentUser);
-router.post('/signup', upload.any(), (req, res, next) => { // Temporarily accept any fields
-  console.log('Fields:', req.body);
-  console.log('Files:', req.files);
+router.post('/signup', upload.single('dogPicture'), (req, res, next) => {
+  console.log('Signup route hit'); // Log when the route is hit
+  console.log('Fields:', req.body); // Log form fields
+  console.log('File:', req.file); // Log the file
   next();
 }, signup); // Ensure 'dogPicture' matches the form field name
 router.get("/users", getUsers);
