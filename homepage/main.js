@@ -3,7 +3,6 @@ import axios from "axios";
 
 console.log('main.js is loaded and running');
 
-
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('signup-form').addEventListener('submit', async function(event) {
         event.preventDefault();
@@ -11,30 +10,67 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData(this);
         const websiteChoice = formData.get('websiteChoice'); // Get the selected website choice
 
-        try {
-            const response = await fetch('/signup', {
-                method: 'POST',
-                body: formData
-            });
+        const userData = {
+            username: formData.get('username'),
+            email: formData.get('email'),
+            password: formData.get('password'),
+            dogType: formData.get('dogType'),
+            dogAge: formData.get('dogAge'),
+            dogGender: formData.get('dogGender'),
+            dogName: formData.get('dogName'),
+            coatLength: formData.get('coatLength'),
+            petFriendly: formData.get('petFriendly'),
+            dogPersonality: formData.get('dogPersonality'),
+            websiteChoice: formData.get('websiteChoice')
+        };
 
-            if (response.ok) {
-                const result = await response.json();
-                if (result.message === 'User created LOL!') {
-                    if (websiteChoice === 'adoption') {
-                        window.location.href = '../Adoption/AdoptionIndex.html'; // Redirect to Adoption website
-                    } else if (websiteChoice === 'breeding') {
-                        window.location.href = '../Breeding/BreedingIndex.html'; // Redirect to Breeding website
-                    }
-                }
-            } else {
-                console.error('Signup failed');
-            }
-        } catch (error) {
-            console.error('Error:', error);
+        // Handle file upload separately
+        const fileInput = document.querySelector('input[name="dogPicture"]');
+        const file = fileInput.files[0];
+        if (file) {
+            const base64String = await getBase64(file);
+            userData.dogPictureBase64 = base64String;
         }
-    });
-});
 
+        async function signupUser(userData) {
+            try {
+                const response = await fetch('/api/users/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userData)
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    if (result.message === 'User created LOL!') {
+                        if (websiteChoice === 'adoption') {
+                            window.location.href = '../Adoption/AdoptionIndex.html'; // Redirect to Adoption website
+                        } else if (websiteChoice === 'breeding') {
+                            window.location.href = '../Breeding/BreedingIndex.html'; // Redirect to Breeding website
+                        }
+                    }
+                } else {
+                    console.error('Signup failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        await signupUser(userData);
+    });
+
+    function getBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
+    }
+});
 
 function App() {
     const [image, setImage] = useState(null);
