@@ -46,49 +46,10 @@ export const getCurrentUser = (req, res) => {
 };
 
 export const signup = async (req, res) => {
-  // Log the entire request body to debug
-  console.log("Received request body:", req.body);
-
   const {
-    username,
-    email,
-    password,
-    dogType,
-    dogAge,
-    dogGender,
-    dogName,
-    coatLength,
-    petFriendly,
-    dogPersonality,
-    websiteChoice,
-    dogPictureBase64,
-  } = req.body;
-
-  // Log the password to ensure it's being received
-  console.log("Received password:", password);
-
-
-
-  try {
-    // Check if the email already exists
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ message: "User with this email already exists." });
-    }
-
-    // Ensure password is present
-    if (!password) {
-      return res.status(400).json({ message: "Password is required" });
-    }
-
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Create a new user with the hashed password
-    const user = new User({
       username,
       email,
-      password: hashedPassword,
+      password,
       dogType,
       dogAge,
       dogGender,
@@ -96,21 +57,48 @@ export const signup = async (req, res) => {
       coatLength,
       petFriendly,
       dogPersonality,
-      dogPicture: dogPictureBase64,
-      websiteChoice,
-    });
+      websiteChoice
+  } = req.body;
 
-    // Save the user to the database
-    await user.save();
+  const dogPicture = req.file ? req.file.filename : null;
 
-    // Send a success response
-    res.status(201).json({ message: "User created successfully." });
+  try {
+      const existingUser = await User.findOne({ email });
+      if (existingUser) {
+          return res.status(400).json({ message: "User with this email already exists." });
+      }
+
+      if (!password) {
+          return res.status(400).json({ message: "Password is required" });
+      }
+
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      const user = new User({
+          username,
+          email,
+          password: hashedPassword,
+          dogType,
+          dogAge,
+          dogGender,
+          dogName,
+          coatLength,
+          petFriendly,
+          dogPersonality,
+          dogPicture,
+          websiteChoice,
+      });
+
+      await user.save();
+
+      res.status(201).json({ message: "User created successfully." });
   } catch (error) {
-    // Log the error for debugging
-    console.error("Error creating user:", error);
-    res.status(500).json({ message: "Error creating user", error: error.message });
+      console.error("Error creating user:", error);
+      res.status(500).json({ message: "Error creating user", error: error.message });
   }
 };
+
+
 export const getUsers = async (req, res) => {
   try {
     const users = await User.find();

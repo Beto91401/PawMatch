@@ -8,6 +8,7 @@ import imageRoutes from "./routes/imageRoutes.js";
 
 
 
+
 // Load environment variables
 dotenv.config();
 
@@ -15,11 +16,12 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 
-
 // Middleware
 app.use(cors()); // Updated to use ES module import
 app.use(express.json({ limit: "50mb" })); // Apply middleware here
 app.use(express.urlencoded({ extended: true }));
+
+
 
 // Serve static files
 app.use(express.static(path.join(process.cwd(), "..", "public")));

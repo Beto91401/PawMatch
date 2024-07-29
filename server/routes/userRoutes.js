@@ -2,7 +2,6 @@ import express from "express";
 import multer from "multer";
 import path from "path";
 import { fileURLToPath } from "url";
-
 import {
   signup,
   getUsers,
@@ -19,7 +18,7 @@ const router = express.Router();
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, "../uploads"));
+    cb(null, path.join(__dirname, "../../uploads"));
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + "-" + file.originalname);
@@ -32,7 +31,11 @@ const upload = multer({ storage: storage });
 router.post("/login", login);
 router.post("/getuse", login);
 router.get("/current-user", getCurrentUser);
-router.post("/signup", signup);
+router.post('/signup', upload.any(), (req, res, next) => { // Temporarily accept any fields
+  console.log('Fields:', req.body);
+  console.log('Files:', req.files);
+  next();
+}, signup); // Ensure 'dogPicture' matches the form field name
 router.get("/users", getUsers);
 router.get("/adoption-users", getAdoptionUsers);
 router.get("/breeding-users", getBreedingUsers);
