@@ -5,6 +5,7 @@ export const authenticateToken = (req, res, next) => {
     const token = authHeader && authHeader.split(' ')[1];
 
     if (!token) {
+        console.log('Token verification failed');
         return res.sendStatus(401);
     }
 
@@ -12,6 +13,7 @@ export const authenticateToken = (req, res, next) => {
         if (err) {
             return res.sendStatus(403);
         }
+        console.log('Token verified successfully');
         req.user = user;
         next();
     });

@@ -54,6 +54,11 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(process.cwd(), "..", "homepage", "index.html"));
 });
 
+// New route for profile
+app.get("/Profile", (req, res) => {
+  res.sendFile(path.join(process.cwd(), "..", "Profile", "ProfileIndex.html"));
+});
+
 // Database connection and server start
 const connectDb = async () => {
   try {

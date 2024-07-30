@@ -9,7 +9,10 @@ import {
   getBreedingUsers,
   login,
   getCurrentUser,
+  getProfile,
+  editProfile
 } from "../controllers/userController.js";
+import { authenticateToken } from '../middleware/authenticateToken.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -43,5 +46,8 @@ router.post('/signup', upload.single('dogPicture'), (req, res, next) => {
 router.get("/users", getUsers);
 router.get("/adoption-users", getAdoptionUsers);
 router.get("/breeding-users", getBreedingUsers);
+router.get('/profile', authenticateToken, getProfile);
+router.post('/edit-profile', authenticateToken, upload.single('dogPicture'), editProfile);
+
 
 export default router;

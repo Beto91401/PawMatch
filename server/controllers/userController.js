@@ -133,3 +133,66 @@ export const getBreedingUsers = async (req, res) => {
     res.status(500).send("Error fetching breeding users");
   }
 };
+
+
+// Function to get the user's profile
+export const getProfile = async (req, res) => {
+  const userId = req.user.id;
+  console.log(`Fetching profile for user ID: ${userId}`);
+  try {
+    const user = await User.findById(userId).select("-password"); // Exclude the password field
+    if (!user) {
+      console.log('User not found');
+      return res.status(404).json({ message: "User not found" });
+    }
+    console.log('User profile fetched successfully:', user);
+    res.json(user);
+  } catch (error) {
+    console.error("Error fetching user profile:", error);
+    res.status(500).json({ message: "Error fetching user profile", error: error.message });
+  }
+};
+
+// Define the editProfile function
+export const editProfile = async (req, res) => {
+  const userId = req.user.id;
+  const {
+    username,
+    email,
+    dogType,
+    dogAge,
+    dogGender,
+    dogName,
+    coatLength,
+    petFriendly,
+    dogPersonality
+  } = req.body;
+
+  const dogPicture = req.file ? req.file.filename : null;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.username = username || user.username;
+    user.email = email || user.email;
+    user.dogType = dogType || user.dogType;
+    user.dogAge = dogAge || user.dogAge;
+    user.dogGender = dogGender || user.dogGender;
+    user.dogName = dogName || user.dogName;
+    user.coatLength = coatLength || user.coatLength;
+    user.petFriendly = petFriendly || user.petFriendly;
+    user.dogPersonality = dogPersonality || user.dogPersonality;
+    if (dogPicture) {
+      user.dogPicture = dogPicture;
+    }
+
+    await user.save();
+    res.json({ message: "Profile updated successfully", user });
+  } catch (error) {
+    console.error("Error updating profile:", error);
+    res.status(500).json({ message: "Error updating profile", error: error.message });
+  }
+};
