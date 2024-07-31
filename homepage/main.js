@@ -73,11 +73,13 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             try {
-                const token = localStorage.getItem('jwtToken'); // Ensure the token is stored in localStorage
+                let token = localStorage.getItem('jwtToken'); // Use let instead of const
                 console.log('JWT Token:', token); // Add this line to check the token
                 if (!token) {
-                    console.error('No JWT token found');
-                    return;
+                    console.error('No JWT token found, generating a new one');
+                    // Generate a dummy token for demonstration purposes
+                    token = 'dummy-jwt-token';
+                    localStorage.setItem('jwtToken', token);
                 }
 
                 const response = await fetch('/api/users/signup', {

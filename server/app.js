@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import userRoutes from "./routes/userRoutes.js";
 import imageRoutes from "./routes/imageRoutes.js";
-
+import messageRoutes from "./routes/messageRoutes.js"; // Add this line
 
 
 
@@ -40,6 +40,8 @@ app.use("/uploads", express.static(path.join(process.cwd(), "..", "uploads")));
 // Routes
 app.use("/api/users", userRoutes);
 app.use("/api/images", imageRoutes);
+app.use("/api/messages", messageRoutes); // Add this line
+
 
 // Serve HTML files
 app.get("/Adoption", (req, res) => {

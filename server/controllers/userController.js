@@ -2,6 +2,8 @@ import passport from "passport";
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import Message from '../models/Message.js';
+
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
@@ -42,11 +44,14 @@ export const login = async (req, res) => {
   }
 };
 
-export const getCurrentUser = (req, res) => {
-  if (req.isAuthenticated()) {
-    res.json({ loggedIn: true, user: req.user });
-  } else {
-    res.json({ loggedIn: false });
+// Get current user
+export const getCurrentUser = async (req, res) => {
+  try {
+      const user = await User.findById(req.user.id).select('-password');
+      if (!user) return res.status(404).json({ message: "User not found." });
+      res.json({ user });
+  } catch (error) {
+      res.status(500).json({ message: "Server error", error: error.message });
   }
 };
 
@@ -124,6 +129,48 @@ export const getAdoptionUsers = async (req, res) => {
     res.status(500).send("Error fetching adoption users");
   }
 };
+
+
+export const getUsersMessaged = async (req, res) => {
+  console.log('hey this is get user messaged');
+  try {
+      const currentUserId = req.user.id;
+      console.log(currentUserId);
+
+      // Find all messages involving the current user
+      const messages = await Message.find({
+          $or: [
+              { senderId: currentUserId },
+              { receiverId: currentUserId }
+          ]
+      });
+
+      // Collect all unique user IDs involved in the conversation
+      const userIdsSet = new Set();
+      messages.forEach(message => {
+          if (message.senderId.toString() !== currentUserId) {
+              userIdsSet.add(message.senderId.toString());
+          }
+          if (message.receiverId.toString() !== currentUserId) {
+              userIdsSet.add(message.receiverId.toString());
+          }
+      });
+
+      // Convert the set to an array
+      const messagedUserIds = Array.from(userIdsSet);
+      console.log('Messaged User IDs:', messagedUserIds);
+
+      // Fetch user details for the messaged users
+      const users = await User.find({ _id: { $in: messagedUserIds } }).select('-password'); // Exclude password field
+      console.log(users);
+      res.json(users);
+  } catch (error) {
+      console.error('Error fetching users messaged:', error);
+      res.status(500).json({ message: 'Error fetching users messaged', error: error.message });
+  }
+};
+
+
 
 export const getBreedingUsers = async (req, res) => {
   try {

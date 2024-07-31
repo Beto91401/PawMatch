@@ -5,6 +5,7 @@ import { fileURLToPath } from "url";
 import {
   signup,
   getUsers,
+  getUsersMessaged,
   getAdoptionUsers,
   getBreedingUsers,
   login,
@@ -36,18 +37,22 @@ const upload = multer({ storage: storage });
 // Routes
 router.post("/login", login);
 router.post("/getuse", login);
-router.get("/current-user", getCurrentUser);
+
 router.post('/signup', upload.single('dogPicture'), (req, res, next) => {
   console.log('Signup route hit'); // Log when the route is hit
   console.log('Fields:', req.body); // Log form fields
   console.log('File:', req.file); // Log the file
   next();
 }, signup); // Ensure 'dogPicture' matches the form field name
-router.get("/users", getUsers);
+router.get('/users', authenticateToken, getUsers); // Ensure you have this route set up
 router.get("/adoption-users", getAdoptionUsers);
 router.get("/breeding-users", getBreedingUsers);
-router.get('/profile', authenticateToken, getProfile);
-router.post('/edit-profile', authenticateToken, upload.single('dogPicture'), editProfile);
+router.get('/users-messaged', authenticateToken, getUsersMessaged);
+
+
+router.get("/current-user", authenticateToken, getCurrentUser);
+router.get("/profile", authenticateToken, getProfile);
+router.post("/edit-profile", authenticateToken, editProfile);
 
 
 export default router;

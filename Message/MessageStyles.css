@@ -42,7 +42,7 @@ body {
     color: #333 !important; /* Adjust color as needed */
     text-decoration: underline;
 }
- /* End of navbar stuff  */
+
 .main-content {
     padding-top: 100px; /* Space for fixed navbar */
     text-align: center;
@@ -66,57 +66,32 @@ body {
     background-color: #F6E3F6;
 }
 
-
-.headshot-container {
-    display:flex; /* Use flexbox for easy alignment */
-    justify-content:flex-start; /* Align items to the left */
-    align-items:center; /* Vertically center the items if needed */
-    padding-left: 450px; 
-    padding-top: 30px;
-    padding-bottom: 15px;
+.message-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #FFF;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    max-height: 500px; /* Adjust as needed */
 }
 
-.headshot-image {
-    border-radius: 50%;
-    width: 150px; 
-    height: 150px; 
-    object-fit: cover;
-    margin-right: 15px; 
+.message {
+    padding: 10px;
+    margin: 10px 0;
+    border-bottom: 1px solid #EEE;
 }
 
-.owner-info {
-    display: flex;
-    flex-direction: column; /* Stack name and description vertically */
-    align-items: flex-start;
-    position: relative; /* Ensure positioning context for absolute positioning */
+.input-group {
+    max-width: 600px;
+    margin: 20px auto;
 }
 
-.owner-name {
-    font-size: 1.5em; 
-    font-weight: bold; 
+.input-group input {
+    border-radius: 50px 0 0 50px;
 }
 
-.owner-description {
-    font-size: 0.9em; 
-    margin-top: 5px; 
-}
-.separator {
-    border: none; /* Remove default border */
-    border-top: 4px solid black; 
-    width: 50%; 
-    margin: 20px auto; 
-}
-
-.star-button {
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    font-size: 3.0em;
-    color: #aaa;
-    margin-left:400px; 
-    margin-bottom: 20px;
-}
-
-.star-button.clicked {
-    color: gold;
+.input-group button {
+    border-radius: 0 50px 50px 0;
 }
