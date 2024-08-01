@@ -217,6 +217,19 @@ export const editProfile = async (req, res) => {
 
   const dogPicture = req.file ? req.file.filename : null;
 
+  console.log('Edit profile data received:', {
+    username,
+    email,
+    dogType,
+    dogAge,
+    dogGender,
+    dogName,
+    coatLength,
+    petFriendly,
+    dogPersonality,
+    dogPicture
+  });
+
   try {
     const user = await User.findById(userId);
     if (!user) {

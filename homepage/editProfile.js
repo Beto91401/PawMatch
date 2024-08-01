@@ -20,20 +20,40 @@ const fetchUserProfile = async () => {
             const user = await response.json();
             console.log('User profile data fetched:', user);
 
-            document.getElementById('profile-username').textContent = user.username;
-            document.getElementById('profile-email').textContent = user.email;
-            document.getElementById('profile-dogType').textContent = user.dogType;
-            document.getElementById('profile-dogAge').textContent = user.dogAge;
-            document.getElementById('profile-dogGender').textContent = user.dogGender;
-            document.getElementById('profile-dogName').textContent = user.dogName;
-            document.getElementById('profile-coatLength').textContent = user.coatLength;
-            document.getElementById('profile-petFriendly').textContent = user.petFriendly;
-            document.getElementById('profile-dogPersonality').textContent = user.dogPersonality;
+            const profileCardContainer = document.getElementById('profile-card-container');
+            profileCardContainer.innerHTML = ''; // Clear any existing content
 
-            // Load the dog picture if it exists
-            if (user.dogPicture) {
-                document.getElementById('profile-dogPicture').src = `/uploads/${user.dogPicture}`;
-            }
+            const card = document.createElement('div');
+            card.classList.add('card');
+            card.innerHTML = `
+                <div class="card-img-container">
+                    <img src="/uploads/${user.dogPicture}" alt="${user.dogName}" class="card-img-top" id="profile-dogPicture">
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title" id="profile-dogName">${user.dogName}</h3>
+                    <p class="card-text" id="profile-dogType">${user.dogType}</p>
+                    <p class="card-text" id="profile-dogAge"> ${user.dogAge}</p>
+                    <p class="card-text" id="profile-dogGender">${user.dogGender}</p>
+                    <p class="card-text" id="profile-dogPersonality">${user.dogPersonality}</p>
+                    <p class="card-text" id="profile-coatLength">${user.coatLength}</p>
+                    <p class="card-text" id="profile-petFriendly">${user.petFriendly}</p>
+                    <button class="btn btn-bubbly" id="edit-button" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
+                </div>
+            `;
+            profileCardContainer.appendChild(card);
+
+            // Add event listener for the Edit button
+            document.getElementById('edit-button').addEventListener('click', () => {
+                console.log('Edit button clicked');
+                // Populate the edit form with current profile data
+                document.getElementById('edit-dogType').value = document.getElementById('profile-dogType').textContent;
+                document.getElementById('edit-dogAge').value = document.getElementById('profile-dogAge').textContent;
+                document.getElementById('edit-dogGender').value = document.getElementById('profile-dogGender').textContent;
+                document.getElementById('edit-dogName').value = document.getElementById('profile-dogName').textContent;
+                document.getElementById('edit-coatLength').value = document.getElementById('profile-coatLength').textContent;
+                document.getElementById('edit-petFriendly').value = document.getElementById('profile-petFriendly').textContent;
+                document.getElementById('edit-dogPersonality').value = document.getElementById('profile-dogPersonality').textContent;
+            });
         } else {
             console.error('Failed to fetch user profile data', response.status, response.statusText);
         }
@@ -85,19 +105,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Fetch current user profile data when the page loads
     fetchUserProfile();
-
-    // Add event listener for the Edit button
-    document.getElementById('edit-button').addEventListener('click', () => {
-        console.log('Edit button clicked');
-        // Populate the edit form with current profile data
-        document.getElementById('edit-username').value = document.getElementById('profile-username').textContent;
-        document.getElementById('edit-email').value = document.getElementById('profile-email').textContent;
-        document.getElementById('edit-dogType').value = document.getElementById('profile-dogType').textContent;
-        document.getElementById('edit-dogAge').value = document.getElementById('profile-dogAge').textContent;
-        document.getElementById('edit-dogGender').value = document.getElementById('profile-dogGender').textContent;
-        document.getElementById('edit-dogName').value = document.getElementById('profile-dogName').textContent;
-        document.getElementById('edit-coatLength').value = document.getElementById('profile-coatLength').textContent;
-        document.getElementById('edit-petFriendly').value = document.getElementById('profile-petFriendly').textContent;
-        document.getElementById('edit-dogPersonality').value = document.getElementById('profile-dogPersonality').textContent;
-    });
 });

@@ -52,7 +52,7 @@ router.get('/users-messaged', authenticateToken, getUsersMessaged);
 
 router.get("/current-user", authenticateToken, getCurrentUser);
 router.get("/profile", authenticateToken, getProfile);
-router.post("/edit-profile", authenticateToken, editProfile);
+router.post('/edit-profile', authenticateToken, upload.single('dogPicture'), editProfile);
 
 
 export default router;
